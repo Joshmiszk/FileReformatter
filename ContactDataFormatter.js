@@ -71,6 +71,22 @@ export default function ContactDataFormatter() {
 
     reader.readAsArrayBuffer(file);
   };
+const aiEnhanceData = async (data) => {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [
+        { role: "system", content: "You are a helpful assistant that formats and corrects contact data for a CRM." },
+        { role: "user", content: `Format and clean the following contact data: ${JSON.stringify(data)}` }
+      ]
+    });
+
+    return JSON.parse(response.choices[0].message.content);
+  } catch (error) {
+    console.error("OpenAI API Error:", error);
+    return data; // Return original data if AI fails
+  }
+};
 
   const downloadCSV = () => {
     if (!processedData) return;
