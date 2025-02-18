@@ -7,6 +7,16 @@ import OpenAI from "openai";
 
 console.log("OpenAI API Key:", process.env.OPENAI_API_KEY);
 
+if (!process.env.OPENAI_API_KEY) {
+  console.error("OpenAI API Key is missing. Ensure it's set in environment variables.");
+}
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  dangerouslyAllowBrowser: true // Add this if using in the frontend
+});
+
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export default function ContactDataFormatter() {
