@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import * as XLSX from "xlsx";
 import OpenAI from "openai";
 
+console.log("OpenAI API Key:", process.env.OPENAI_API_KEY);
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export default function ContactDataFormatter() {
