@@ -5,17 +5,7 @@ import { Input } from "@/components/ui/input";
 import * as XLSX from "xlsx";
 import OpenAI from "openai";
 
-console.log("OpenAI API Key:", process.env.OPENAI_API_KEY);
-
-if (!process.env.OPENAI_API_KEY) {
-  console.error("OpenAI API Key is missing. Ensure it's set in environment variables.");
-}
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true // Add this if using in the frontend
-});
-
+console.log("OpenAI API Key:", process.env.OPENAI_API_KEY ? "SET" : "NOT SET");
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -32,6 +22,7 @@ export default function ContactDataFormatter() {
 
   const aiEnhanceData = async (data) => {
     try {
+      console.log("Calling OpenAI API with data:", JSON.stringify(data, null, 2));
       const response = await openai.chat.completions.create({
         model: "gpt-4",
         messages: [
